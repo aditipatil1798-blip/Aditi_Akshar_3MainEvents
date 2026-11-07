@@ -444,15 +444,25 @@
         let isPlaying = false;
 
         function openInvitation() {
-            document.getElementById('entry-screen').classList.add('door-open');
-            setTimeout(() => {
-                document.getElementById('entry-screen').style.display = 'none';
-                musicBtn.classList.remove('hidden');
-                
-                bgMusic.play().then(() => {
-                    isPlaying = true;
-                }).catch(e => console.log("Audio playback requires user interaction."));
-            }, 1000);
+    const entryScreen = document.getElementById('entry-screen');
+
+    // Start music immediately when the guest clicks
+    bgMusic.play().then(() => {
+        isPlaying = true;
+        iconOn.classList.remove('hidden');
+        iconOff.classList.add('hidden');
+    }).catch(error => {
+        console.log("Music playback failed:", error);
+    });
+
+    // Open the invitation
+    entryScreen.classList.add('door-open');
+
+    setTimeout(() => {
+        entryScreen.style.display = 'none';
+        musicBtn.classList.remove('hidden');
+    }, 1000);
+}
         }
 
         musicBtn.addEventListener('click', () => {
