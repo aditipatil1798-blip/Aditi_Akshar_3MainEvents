@@ -512,5 +512,47 @@
             }, 3000);
         }
     </script>
-</body>
+<audio id="weddingMusic" loop>
+  <source src="wedding-song.mp3" type="audio/mpeg">
+</audio>
+
+<button id="musicButton" aria-label="Play music">
+  ♫ Play Music
+</button>
+
+<style>
+  #musicButton {
+    position: fixed;
+    bottom: 25px;
+    right: 20px;
+    z-index: 9999;
+    padding: 12px 20px;
+    border: 1px solid #c9a96e;
+    border-radius: 30px;
+    background: #fffaf2;
+    color: #72532d;
+    font-size: 14px;
+    cursor: pointer;
+    box-shadow: 0 3px 12px rgba(0,0,0,0.12);
+  }
+</style>
+
+<script>
+  const music = document.getElementById("weddingMusic");
+  const button = document.getElementById("musicButton");
+
+  button.addEventListener("click", async () => {
+    if (music.paused) {
+      try {
+        await music.play();
+        button.textContent = "♫ Pause Music";
+      } catch (error) {
+        console.error("Music could not be played:", error);
+      }
+    } else {
+      music.pause();
+      button.textContent = "♫ Play Music";
+    }
+  });
+</script></body>
 </html>
